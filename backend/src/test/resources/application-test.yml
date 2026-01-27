@@ -1,0 +1,45 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+
+  flyway:
+    enabled: true
+
+app:
+  jwt:
+    secret: test-secret-key-for-testing-only-32-chars
+    access-token-expiration: 900000
+    refresh-token-expiration: 604800000
+
+  encryption:
+    key: test-encryption-key-32-chars!!!
+
+  booking:
+    min-advance-hours: 12
+    max-advance-days: 90
+    cancellation-hours: 24
+    slot-minutes: 15
+
+  notifications:
+    enabled: false
+    from-email: test@test.com
+    from-name: Test
+
+  retention:
+    enabled: false
+    months: 24
+
+  admin:
+    default-email: admin@test.com
+    default-password: test123
+    default-name: Admin Test
+
+  cors:
+    allowed-origins: http://localhost:3000
+
+logging:
+  level:
+    root: WARN
+    com.psicoagenda: INFO
