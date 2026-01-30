@@ -1,0 +1,88 @@
+#!/bin/sh
+# ----------------------------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#    https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# Apache Maven Wrapper startup batch script, version 3.3.2
+# ----------------------------------------------------------------------------
+
+# Detect if in cygwin/msys/mingw environment
+case "$(uname)" in
+  CYGWIN*|MINGW*|MSYS*) cygwin=true ;;
+  *) cygwin=false ;;
+esac
+
+# Get script directory
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
+# Configuration
+MAVEN_PROJECTBASEDIR="${MAVEN_BASEDIR:-$SCRIPT_DIR}"
+MAVEN_WRAPPER_JAR="$SCRIPT_DIR/.mvn/wrapper/maven-wrapper.jar"
+MAVEN_WRAPPER_PROPERTIES="$SCRIPT_DIR/.mvn/wrapper/maven-wrapper.properties"
+
+# Default Maven version
+MAVEN_VERSION="3.9.6"
+MAVEN_DOWNLOAD_URL="https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/${MAVEN_VERSION}/apache-maven-${MAVEN_VERSION}-bin.zip"
+
+# Check if Maven Wrapper JAR exists
+if [ ! -f "$MAVEN_WRAPPER_JAR" ]; then
+  echo "Maven Wrapper JAR not found. Downloading Maven directly..."
+
+  # Create a temp directory
+  MAVEN_HOME="$HOME/.m2/wrapper/dists/apache-maven-${MAVEN_VERSION}"
+
+  if [ ! -d "$MAVEN_HOME" ]; then
+    mkdir -p "$MAVEN_HOME"
+
+    # Download Maven
+    if command -v curl > /dev/null 2>&1; then
+      curl -fsSL -o "/tmp/maven.zip" "$MAVEN_DOWNLOAD_URL"
+    elif command -v wget > /dev/null 2>&1; then
+      wget -q -O "/tmp/maven.zip" "$MAVEN_DOWNLOAD_URL"
+    else
+      echo "Error: Neither curl nor wget found. Cannot download Maven."
+      exit 1
+    fi
+
+    # Extract Maven
+    unzip -q "/tmp/maven.zip" -d "$MAVEN_HOME"
+    rm "/tmp/maven.zip"
+  fi
+
+  # Find Maven executable
+  MAVEN_EXEC="$(find "$MAVEN_HOME" -name "mvn" -type f 2>/dev/null | head -1)"
+
+  if [ -z "$MAVEN_EXEC" ]; then
+    echo "Error: Could not find Maven executable"
+    exit 1
+  fi
+
+  exec "$MAVEN_EXEC" "$@"
+else
+  # Use Maven Wrapper JAR
+  JAVA_CMD="java"
+  if [ -n "$JAVA_HOME" ]; then
+    JAVA_CMD="$JAVA_HOME/bin/java"
+  fi
+
+  exec "$JAVA_CMD" \
+    -classpath "$MAVEN_WRAPPER_JAR" \
+    org.apache.maven.wrapper.MavenWrapperMain "$@"
+fi
