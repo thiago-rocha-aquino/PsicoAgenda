@@ -5,7 +5,7 @@ Sistema de agendamento online para consultorio de psicologia.
 ## Stack Tecnologica
 
 - **Backend**: Java 21 + Spring Boot 3.2
-- **Frontend**: Next.js 14 + TypeScript + Tailwind CSS + shadcn/ui
+- **Frontend**: Next.js  + TypeScript + Tailwind CSS + shadcn/ui
 - **Banco de Dados**: PostgreSQL 
 - **Containerizacao**: Docker
 
